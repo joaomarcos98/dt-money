@@ -8,8 +8,8 @@ import { TransactionsContext } from "../../TransactionsContext";
 
 export function Summary() {
 
-    const transactons = useContext(TransactionsContext)
-    console.log(transactons);
+    const { transactions } = useContext(TransactionsContext)
+    console.log(transactions);
 
     return (
         <Container>
