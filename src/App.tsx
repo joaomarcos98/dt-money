@@ -6,6 +6,8 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { TransactionProvider } from "./hooks/useTransactions";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./styles/themes";
 
 Modal.setAppElement("#root")
 
@@ -23,18 +25,26 @@ export function App() {
   function handleCloseNewTransactionModal() {
     setIsNewTransactionModal(false)
   }
-  
+
+  const [theme, setTheme] = useState(true);
+
+  const toggleTheme = () => {
+    setTheme((theme) => !theme)
+  }
+
   return (
-    <TransactionProvider >
-      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-      <GlobalStyle />
+    <ThemeProvider theme={theme ? lightTheme : darkTheme}>
+      <TransactionProvider >
+        <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+        <GlobalStyle />
 
-      <NewTransactionModal
-        isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransactionModal}
-      />
+        <NewTransactionModal
+          isOpen={isNewTransactionModalOpen}
+          onRequestClose={handleCloseNewTransactionModal}
+        />
 
-      <Dashboard />
-    </TransactionProvider>
+        <Dashboard />
+      </TransactionProvider>
+    </ThemeProvider>
   );
 }
